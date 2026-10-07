@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Motos — AutoMotos</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
+        body {background: #f0f4f8; color: #2d3748;}
+
+        header {
+            background: linear-gradient(135deg, #1a202c, #2b6cb0, #2f855a);
+            color: white; padding: 25px; text-align: center;
+        }
+        header h1 {font-size: 28px; margin-bottom: 5px;}
+
+        .volver {display: inline-block; margin: 20px; color: #2b6cb0;
+            text-decoration: none; font-weight: bold;}
+        .volver:hover {color: #2f855a;}
+
+        .contenedor {max-width: 1000px; margin: 0 auto; padding: 20px;}
+        .titulo {text-align: center; font-size: 24px; margin-bottom: 30px;
+            padding-bottom: 10px; border-bottom: 3px solid;}
+
+        .pagina {display: none;}
+        .pagina.activa {display: block;}
+
+        .marca {background: white; border-radius: 18px; padding: 22px; margin-bottom: 20px;
+            border-left: 5px solid; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            cursor: pointer; transition: all 0.3s;}
+        .marca:hover {transform: translateY(-3px);}
+        .nombre-marca {font-size: 20px; font-weight: bold; margin-bottom: 8px;}
+        .desc {font-size: 15px; color: #4a5568; margin-bottom: 10px;}
+        .boton {color: white; padding: 9px 22px; border-radius: 25px;
+            border: none; font-weight: bold; cursor: pointer;}
+
+        .modelo {background: white; border-radius: 18px; padding: 22px; margin-bottom: 20px;
+            border-left: 5px solid; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
+        .fila {display: flex; flex-wrap: wrap; gap: 20px; align-items: center;}
+        .col-img {flex: 1 1 250px;}
+        .col-datos {flex: 1 1 280px;}
+        
+        .foto {
+            width: 100%; height: 200px; object-fit: cover; border-radius: 12px;
+            border: 3px solid #e2e8f0; background: #e2e8f0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 50px; color: #94a3b8;
+        }
+        .foto img {width: 100%; height: 100%; object-fit: cover; border-radius: 10px;}
+        
+        .nombre-moto {font-size: 20px; font-weight: bold; margin-bottom: 8px;}
+        .desc-moto {font-size: 15px; color: #4b5563; margin-bottom: 8px;}
+        .precio {font-size: 22px; font-weight: bold; color: #16a34a; margin: 8px 0;}
+        .btn-comprar {width: 100%; padding: 12px; border-radius: 25px;
+            border: none; color: white; font-weight: bold; font-size: 16px; cursor: pointer;}
+
+        footer {background: #1a202c; color: white; text-align: center;
+            padding: 20px; margin-top: 30px;}
+
+        /* COLORES */
+        .honda {border-color: #dc2626;}
+        .honda .titulo {color: #dc2626; border-color: #fecaca;}
+        .honda .nombre-marca, .honda .nombre-moto {color: #dc2626;}
+        .honda .boton, .honda .btn-comprar {background: #dc2626;}
+
+        .pulsar {border-color: #eab308;}
+        .pulsar .titulo {color: #ca8a04; border-color: #fef08a;}
+        .pulsar .nombre-marca, .pulsar .nombre-moto {color: #ca8a04;}
+        .pulsar .boton, .pulsar .btn-comprar {background: #eab308; color: #1f2937;}
+
+        .italika {border-color: #3b82f6;}
+        .italika .titulo {color: #2563eb; border-color: #bfdbfe;}
+        .italika .nombre-marca, .italika .nombre-moto {color: #2563eb;}
+        .italika .boton, .italika .btn-comprar {background: #3b82f6;}
+
+        .kawasaki {border-color: #16a34a;}
+        .kawasaki .titulo {color: #15803d; border-color: #bbf7d0;}
+        .kawasaki .nombre-marca, .kawasaki .nombre-moto {color: #15803d;}
+        .kawasaki .boton, .kawasaki .btn-comprar {background: #16a34a;}
+
+        .movesa {border-color: #8b5cf6;}
+        .movesa .titulo {color: #7c3aed; border-color: #ddd6fe;}
+        .movesa .nombre-marca, .movesa .nombre-moto {color: #7c3aed;}
+        .movesa .boton, .movesa .btn-comprar {background: #8b5cf6;}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏍️ Tienda de Motos — AutoMotos 🏍️</h1>
+    <p>Elige tu marca y descubre todos los modelos</p>
+</header>
+
+<div class="contenedor">
+
+    <div id="inicio" class="pagina activa">
+        <h2 class="titulo" style="color:#2b6cb0; border-color:#90cdf4;">Nuestras 5 Marcas</h2>
+
+        <div class="marca honda" onclick="mostrar('honda')">
+            <h3 class="nombre-marca">🔴 Honda</h3>
+            <p class="desc">Japón 🇯🇵 — La más confiable. 4 modelos disponibles.</p>
+            <button class="boton">Ver modelos →</button>
+        </div>
+
+        <div class="marca pulsar" onclick="mostrar('pulsar')">
+            <h3 class="nombre-marca">🟡 Pulsar</h3>
+            <p class="desc">India 🇮🇳 — Potencia y economía. 4 modelos disponibles.</p>
+            <button class="boton">Ver modelos →</button>
+        </div>
+
+        <div class="marca italika" onclick="mostrar('italika')">
+            <h3 class="nombre-marca">🔵 Italika</h3>
+            <p class="desc">México 🇲🇽 — Accesible y popular. 4 modelos disponibles.</p>
+            <button class="boton">Ver modelos →</button>
+        </div>
+
+        <div class="marca kawasaki" onclick="mostrar('kawasaki')">
+            <h3 class="nombre-marca">🟢 Kawasaki</h3>
+            <p class="desc">Japón 🇯🇵 — Velocidad y prestigio. 4 modelos disponibles.</p>
+            <button class="boton">Ver modelos →</button>
+        </div>
+
+        <div class="marca movesa" onclick="mostrar('movesa')">
+            <h3 class="nombre-marca">🟣 Movesa</h3>
+            <p class="desc">Guatemala 🇬🇹 — Económica y resistente. 4 modelos disponibles.</p>
+            <button class="boton">Ver modelos →</button>
+        </div>
+    </div>
+
+    <!-- HONDA -->
+    <div id="honda" class="pagina honda">
+        <span class="volver" onclick="mostrar('inicio')">← Volver al Inicio</span>
+        <h2 class="titulo">🔴 HONDA — 4 Modelos Disponibles</h2>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img">
+                    <div class="foto">
+                        <img src="foto1.jpg.jpeg" alt="Honda CB125F" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';">
+                    </div>
+                </div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Honda CB125F</h3>
+                    <p class="desc-moto">Motor 125cc. Ligera, económica y confiable. Ideal para la ciudad.</p>
+                    <p class="precio">Q 18,500.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img">
+                    <div class="foto">
+                        <img src="foto2.jpg.jpeg" alt="Honda CB160" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';">
+                    </div>
+                </div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Honda CB160</h3>
+                    <p class="desc-moto">Motor 160cc. Más potencia. Diseño deportivo. Ciudad y carretera.</p>
+                    <p class="precio">Q 22,900.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img">
+                    <div class="foto">
+                        <img src="foto3.jpg.jpeg" alt="Honda CBR 250" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';">
+                    </div>
+                </div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Honda CBR 250</h3>
+                    <p class="desc-moto">Motor 250cc. Estilo deportivo. Excelente para viajes.</p>
+                    <p class="precio">Q 31,500.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img">
+                    <div class="foto">
+                        <img src="foto4.jpg.jpeg" alt="Honda Africa Twin" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';">
+                    </div>
+                </div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Honda Africa Twin</h3>
+                    <p class="desc-moto">Motor 1000cc. Aventura total. Para cualquier terreno.</p>
+                    <p class="precio">Q 78,000.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PULSAR -->
+    <div id="pulsar" class="pagina pulsar">
+        <span class="volver" onclick="mostrar('inicio')">← Volver al Inicio</span>
+        <h2 class="titulo">🟡 PULSAR — 4 Modelos Disponibles</h2>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto5.jpg.jpeg" alt="Pulsar 125" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Pulsar 125</h3>
+                    <p class="desc-moto">Motor 125cc. Económica y resistente.</p>
+                    <p class="precio">Q 12,800.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto6.jpg.jpeg" alt="Pulsar 150" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Pulsar 150</h3>
+                    <p class="desc-moto">Motor 150cc. La más vendida.</p>
+                    <p class="precio">Q 15,400.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto7.jpg.jpeg" alt="Pulsar NS 200" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Pulsar NS 200</h3>
+                    <p class="desc-moto">Motor 200cc. Diseño deportivo.</p>
+                    <p class="precio">Q 19,900.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto8.jpg.jpeg" alt="Pulsar RS 200" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Pulsar RS 200</h3>
+                    <p class="desc-moto">Motor 200cc con carenado. La más rápida.</p>
+                    <p class="precio">Q 23,500.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ITALIKA -->
+    <div id="italika" class="pagina italika">
+        <span class="volver" onclick="mostrar('inicio')">← Volver al Inicio</span>
+        <h2 class="titulo">🔵 ITALIKA — 4 Modelos Disponibles</h2>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto9.jpg.jpeg" alt="Italika FT125" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Italika FT125</h3>
+                    <p class="desc-moto">Motor 125cc. La más vendida.</p>
+                    <p class="precio">Q 8,900.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto10.jpg.jpeg" alt="Italika FT150" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Italika FT150</h3>
+                    <p class="desc-moto">Motor 150cc. Mayor fuerza.</p>
+                    <p class="precio">Q 10,500.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto11.jpg.jpeg" alt="Italika 200 Sport" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Italika 200 Sport</h3>
+                    <p class="desc-moto">Motor 200cc. Estilo deportivo.</p>
+                    <p class="precio">Q 13,200.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto12.jpg.jpeg" alt="Italika Max 250" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Italika Max 250</h3>
+                    <p class="desc-moto">Motor 250cc. La más potente.</p>
+                    <p class="precio">Q 16,800.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KAWASAKI -->
+    <div id="kawasaki" class="pagina kawasaki">
+        <span class="volver" onclick="mostrar('inicio')">← Volver al Inicio</span>
+        <h2 class="titulo">🟢 KAWASAKI — 4 Modelos Disponibles</h2>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto13.jpg.jpeg" alt="Ninja 400" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Ninja 400</h3>
+                    <p class="desc-moto">Motor 400cc. Ágil y elegante.</p>
+                    <p class="precio">Q 32,000.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto14.jpg.jpeg" alt="Ninja 650" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Ninja 650</h3>
+                    <p class="desc-moto">Motor 650cc. Para viajes largos.</p>
+                    <p class="precio">Q 45,500.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto15.jpg.jpeg" alt="Z900" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Z900</h3>
+                    <p class="desc-moto">Motor 900cc. Potencia pura.</p>
+                    <p class="precio">Q 62,000.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto16.jpg.jpeg" alt="Ninja ZX-10R" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Ninja ZX-10R</h3>
+                    <p class="desc-moto">Motor 1000cc. Máxima velocidad.</p>
+                    <p class="precio">Q 98,000.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOVESA -->
+    <div id="movesa" class="pagina movesa">
+        <span class="volver" onclick="mostrar('inicio')">← Volver al Inicio</span>
+        <h2 class="titulo">🟣 MOVESA — 4 Modelos Disponibles</h2>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto17.jpg.jpeg" alt="Movesa 100" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Movesa 100</h3>
+                    <p class="desc-moto">Motor 100cc. La más económica.</p>
+                    <p class="precio">Q 7,500.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto18.jpg.jpeg" alt="Movesa 125" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Movesa 125</h3>
+                    <p class="desc-moto">Motor 125cc. Equilibrio perfecto.</p>
+                    <p class="precio">Q 8,900.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto19.jpg.jpeg" alt="Movesa 150" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Movesa 150</h3>
+                    <p class="desc-moto">Motor 150cc. Para nuestras calles.</p>
+                    <p class="precio">Q 10,200.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modelo">
+            <div class="fila">
+                <div class="col-img"><div class="foto"><img src="foto20.jpg.jpeg" alt="Movesa 200" onerror="this.style.display='none'; this.parentElement.innerHTML='🏍️';"></div></div>
+                <div class="col-datos">
+                    <h3 class="nombre-moto">Movesa 200</h3>
+                    <p class="desc-moto">Motor 200cc. La más potente.</p>
+                    <p class="precio">Q 12,800.00</p>
+                    <button class="btn-comprar">🛒 Comprar este modelo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <h3>🏍️ Tienda de Motos — AutoMotos</h3>
+    <p>📍 Ciudad de Guatemala | 📞 3388-8535</p>
+    <p>&copy; 2026 — Todos los derechos reservados</p>
+</footer>
+
+<script>
+function mostrar(id) {
+    document.querySelectorAll('.pagina').forEach(pag => pag.classList.remove('activa'));
+    document.getElementById(id).classList.add('activa');
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
